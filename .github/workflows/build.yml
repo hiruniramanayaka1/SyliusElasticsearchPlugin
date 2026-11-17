@@ -27,7 +27,7 @@ jobs:
         name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, ${{ matrix.database == 'postgres' && format('PostgreSQL {0}', matrix.database_version) || format('MySQL {0}', matrix.database_version) }}, ES ${{ matrix.elasticsearch }}, State Machine Adapter ${{ matrix.state_machine_adapter }}"
 
         strategy:
-            fail-fast: false
+            fail-fast: true
             matrix:
                 php: [ "8.3", "8.4" ]
                 symfony: [ "^6.4", "^7.4", "^8.0" ]
@@ -40,12 +40,10 @@ jobs:
                 state_machine_adapter: [ "symfony_workflow" ]
 
                 exclude:
-                    # Symfony 8 requires PHP >= 8.4.1
                     -
                         php: "8.3"
                         symfony: "^8.0"
 
-                    # Sylius 2.2 supports Symfony ^6.4.1 || ^7.4 only
                     -
                         sylius: "~2.2.0"
                         symfony: "^8.0"
